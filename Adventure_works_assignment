@@ -1,0 +1,224 @@
+## Some List of SQL Queries and Their Descriptions
+
+1. **Find all customers with the first name 'John'.**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE FirstName = 'John';
+    ```
+
+2. **Sort customers alphabetically by their last name in ascending order.**
+    ```sql
+    SELECT *
+    FROM customers
+    ORDER BY LastName ASC;
+    ```
+
+3. **Update the email address of a customer with CustomerKey 12345 to 'newemail@example.com'.**
+    ```sql
+    UPDATE customers
+    SET EmailAddress = 'newemail@example.com'
+    WHERE CustomerKey = 12345;
+    ```
+
+4. **Calculate the average annual income of customers.**
+    ```sql
+    SELECT AVG(AnnualIncome) AS AverageAnnualIncome
+    FROM customers;
+    ```
+
+5. **Find customers who were born in the year 1980.**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE YEAR(BirthDate) = 1980;
+    ```
+
+6. **Count the number of customers with a specific marital status (e.g., Single).**
+    ```sql
+    SELECT COUNT(*) AS NumberOfSingleCustomers
+    FROM customers
+    WHERE MaritalStatus = 'Single';
+    ```
+
+7. **Update the marital status of customers with a specific prefix (e.g., Mr.) to 'Married'.**
+    ```sql
+    UPDATE adventureworks_customers
+    SET MaritalStatus = 'Married'
+    WHERE Prefix = 'MR.';
+    ```
+
+8. **Calculate the total number of customers with a specific education level (e.g., Bachelor's degree).**
+    ```sql
+    SELECT COUNT(*) AS NumberOfBachelorsDegree
+    FROM customers
+    WHERE EducationLevel = 'Bachelor\'s degree';
+    ```
+
+9. **Count the number of customers in each occupation category.**
+    ```sql
+    SELECT Occupation, COUNT(*) AS NumberOfCustomers
+    FROM customers
+    GROUP BY Occupation;
+    ```
+
+10. **Find the oldest customer in the dataset based on their birthdate.**
+    Due to the Birthdate column being in Text format, added a new column for the new date format:
+    ```sql
+    ALTER TABLE customers ADD COLUMN BirthDateFormatted DATE;
+    ```
+
+    Updated the new column in date format:
+    ```sql
+    UPDATE customers
+    SET BirthDateFormatted = STR_TO_DATE(BirthDate, '%Y-%m-%d');
+    ```
+
+    Below query showing oldest customer:
+    ```sql
+    SELECT *
+    FROM customers
+    ORDER BY BirthDateFormatted ASC
+    LIMIT 1;
+    ```
+
+11. **Find customers who have at least two children.**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE NumberOfChildren >= 2;
+    ```
+
+12. **Calculate the sum of annual income for customers with a specific gender (e.g., Male).**
+    ```sql
+    SELECT SUM(AnnualIncome) AS TotalAnnualIncome
+    FROM customers
+    WHERE Gender = 'Male';
+    ```
+
+13. **Find customers with an annual income between $50,000 and $100,000.**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE AnnualIncome BETWEEN 50000 AND 100000;
+    ```
+
+14. **Extract the first three characters of the first name for each customer.**
+    ```sql
+    SELECT SUBSTRING(FirstName, 1, 3) AS FirstThreeChars
+    FROM customers;
+    ```
+
+15. **Find customers with a specific prefix (e.g., Dr.) and a specific education level (e.g., Master's degree).**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE Prefix = 'Dr.'
+    AND EducationLevel = 'Master\'s degree';
+    ```
+
+16. **Count the number of customers in each gender category.**
+    ```sql
+    SELECT Gender, COUNT(*) AS NumberOfCustomers
+    FROM customers
+    GROUP BY Gender;
+    ```
+
+17. **Update the prefix of all customers with CustomerKey greater than 10000 to 'Ms.'.**
+    ```sql
+    UPDATE customers
+    SET Prefix = 'Ms.'
+    WHERE CustomerKey > 10000;
+    ```
+
+18. **Find the average age of customers with a specific annual income range (e.g., $75,000 - $100,000).**
+    ```sql
+    SELECT AVG(YEAR(CURDATE()) - YEAR(BirthDate)) AS AverageAge
+    FROM customers
+    WHERE AnnualIncome BETWEEN 75000 AND 100000;
+    ```
+
+19. **Find customers who were born on a specific day of the week (e.g., Monday).**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE DAYOFWEEK(BirthDate) = 2; -- 2 represents Monday
+    ```
+
+20. **Identify customers who have not provided their email address.**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE EmailAddress IS NULL;
+    ```
+
+21. **Find customers with an odd-numbered CustomerKey.**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE CustomerKey % 2 <> 0;
+    ```
+
+22. **Calculate the average annual income of customers with a specific occupation (e.g., Engineer).**
+    ```sql
+    SELECT AVG(AnnualIncome) AS AverageAnnualIncome
+    FROM customers
+    WHERE Occupation = 'Engineer';
+    ```
+
+23. **Find the customer with the highest annual income.**
+    ```sql
+    SELECT *
+    FROM customers
+    ORDER BY AnnualIncome DESC
+    LIMIT 1;
+    ```
+
+24. **Sort customers by their annual income in descending order.**
+    ```sql
+    SELECT *
+    FROM customers
+    ORDER BY AnnualIncome DESC;
+    ```
+
+25. **Find customers with a specific suffix in their email address (e.g., @gmail.com).**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE EmailAddress LIKE '%@gmail.com';
+    ```
+
+26. **Calculate the total number of customers in the dataset.**
+    ```sql
+    SELECT COUNT(*) AS TotalCustomers
+    FROM customers;
+    ```
+
+27. **Calculate the number of customers with each marital status within a specific gender group (e.g., Male).**
+    ```sql
+    SELECT MaritalStatus, COUNT(*) AS NumberOfCustomers
+    FROM customers
+    WHERE Gender = 'Male'
+    GROUP BY MaritalStatus;
+    ```
+
+28. **Find customers whose first name contains a specific letter (e.g., 'a').**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE FirstName LIKE '%a%';
+    ```
+
+29. **Count the number of customers with an even-numbered CustomerKey.**
+    ```sql
+    SELECT COUNT(*) AS NumberOfEvenCustomerKeys
+    FROM customers
+    WHERE CustomerKey % 2 = 0;
+    ```
+
+30. **Find customers who were born in a specific month (e.g., May).**
+    ```sql
+    SELECT *
+    FROM customers
+    WHERE MONTH(BirthDate) = 5; -- 5 represents May
+    ```
